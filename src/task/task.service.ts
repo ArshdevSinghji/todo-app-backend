@@ -4,7 +4,6 @@ import { Task } from './entities/task.entity';
 import { Repository } from 'typeorm/repository/Repository';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UserService } from 'src/user/user.service';
-import { AssignedTask } from 'src/assigned-task/entities/assigned-task.entity';
 
 @Injectable()
 export class TaskService {
