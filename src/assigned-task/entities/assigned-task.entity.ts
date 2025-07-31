@@ -22,6 +22,6 @@ export class AssignedTask {
   @JoinColumn({ name: 'taskId' })
   task: Task;
 
-  @Column({ type: 'enum', enum: IsCompleted })
+  @Column({ type: 'enum', enum: IsCompleted, default: IsCompleted.FALSE })
   isCompleted: IsCompleted;
 }

@@ -20,6 +20,24 @@ export class UserService {
     return await this.userRepository.save(user);
   }
 
+  async findUser(searchTerm?: string) {
+    const qb = this.userRepository.createQueryBuilder('user');
+    if (searchTerm) {
+      qb.where('user.email ILIKE :searchTerm', {
+        searchTerm: `%${searchTerm}%`,
+      });
+      qb.orWhere('user.username ILIKE :searchTerm', {
+        searchTerm: `%${searchTerm}%`,
+      });
+    }
+    // qb.leftJoinAndSelect('user.tasks', 'tasks').leftJoinAndSelect(
+    //   'user.assignedTasks',
+    //   'assignedTasks',
+    // );
+    // qb.orderBy('user.uid', 'ASC');
+    return await qb.getMany();
+  }
+
   async findUserByEmail(email: string) {
     return await this.userRepository.findOne({ where: { email } });
   }

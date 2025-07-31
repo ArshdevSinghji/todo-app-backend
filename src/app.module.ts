@@ -4,8 +4,15 @@ import { dataSourceOptions } from './data-source';
 import { UserModule } from './user/user.module';
 import { TaskModule } from './task/task.module';
 import { AssignedTaskModule } from './assigned-task/assigned-task.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(dataSourceOptions), UserModule, TaskModule, AssignedTaskModule],
+  imports: [
+    TypeOrmModule.forRoot(dataSourceOptions),
+    UserModule,
+    TaskModule,
+    AssignedTaskModule,
+    AuthModule,
+  ],
 })
 export class AppModule {}
