@@ -22,10 +22,8 @@ export class AssignedTaskService {
       throw new BadRequestException('User not found');
     }
 
-    const task = await this.taskService.findOneById(taskId);
-    if (!task) {
-      throw new BadRequestException('Task not found');
-    }
+    const task = await this.taskService.getTaskById(taskId);
+    console.log('Task found:', task);
 
     const assignedTask = this.assignedTaskRepository.create({
       isCompleted: IsCompleted.FALSE,

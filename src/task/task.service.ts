@@ -56,11 +56,11 @@ export class TaskService {
       qb.andWhere('task.endTime <= :endTime', { endTime });
     }
 
-    if (filterType === 'myCreation' && userId) {
-      qb.andWhere('createdBy.uid = :userId', { userId });
-    } else if (userId) {
-      qb.andWhere('assignee.uid = :userId', { userId });
-    }
+    // if (filterType === 'myCreation' && userId) {
+    //   qb.andWhere('createdBy.uid = :userId', { userId });
+    // } else if (userId) {
+    //   qb.andWhere('assignee.uid = :userId', { userId });
+    // }
 
     if (searchTerm) {
       searchTerm = searchTerm.trim();

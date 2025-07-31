@@ -1,17 +1,16 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { AssignedTaskService } from './assigned-task.service';
-import { CreateAssignedTaskDto } from './dto/create-assigned-task.dto';
 
 @Controller('assigned-task')
 export class AssignedTaskController {
   constructor(private readonly assignedTaskService: AssignedTaskService) {}
 
-  @Post()
-  async createAssignedTask(@Body() body: { taskId: number; userId: number }) {
-    return await this.assignedTaskService.createAssignedTask(
-      body.taskId,
-      body.userId,
-    );
+  @Post(':taskId/userId/:userId')
+  async createAssignedTask(
+    @Param('taskId') taskId: number,
+    @Param('userId') userId: number,
+  ) {
+    return await this.assignedTaskService.createAssignedTask(taskId, userId);
   }
 
   @Get(':taskId')
