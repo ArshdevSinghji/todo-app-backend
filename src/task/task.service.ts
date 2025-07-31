@@ -45,9 +45,7 @@ export class TaskService {
   ) {
     const qb = this.taskRepository
       .createQueryBuilder('task')
-      .leftJoinAndSelect('task.user', 'createdBy')
-      .leftJoinAndSelect('task.assignedTasks', 'assignedTask')
-      .leftJoinAndSelect('assignedTask.user', 'assignee');
+      .leftJoinAndSelect('task.user', 'createdBy');
 
     if (startTime) {
       qb.andWhere('task.startTime >= :startTime', { startTime });
@@ -60,7 +58,6 @@ export class TaskService {
     if (filterType === 'myCreation' && userId) {
       qb.andWhere('createdBy.uid = :userId', { userId });
     } else if (userId) {
-      qb.andWhere('assignee.uid = :userId', { userId });
     }
 
     if (searchTerm) {

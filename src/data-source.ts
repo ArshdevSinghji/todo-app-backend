@@ -3,6 +3,7 @@ import { config as dotenvConfig } from 'dotenv';
 import { User } from './user/entities/user.entity';
 import { Task } from './task/entities/task.entity';
 import { AssignedTask } from './assigned-task/entities/assigned-task.entity';
+import { Eval } from './eval/entities/eval.entity';
 
 dotenvConfig({ path: '.env' });
 
@@ -13,10 +14,10 @@ export const dataSourceOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: [User, Task, AssignedTask, 'dist/**/*.entity.js'],
+  entities: [User, Task, AssignedTask, Eval, 'dist/**/*.entity.js'],
   migrations: ['dist/database/migrations/*.js'],
   seeds: ['dist/database/seeds/*.js'],
-  synchronize: false,
+  synchronize: true,
   logging: false,
 } as DataSourceOptions;
 
