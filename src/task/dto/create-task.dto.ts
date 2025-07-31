@@ -1,4 +1,27 @@
-import { IsDate, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsString,
+  Validate,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+  ValidationArguments,
+} from 'class-validator';
+
+@ValidatorConstraint({ name: 'isEndTimeAfterStartTime', async: false })
+class IsEndTimeAfterStartTimeConstraint
+  implements ValidatorConstraintInterface
+{
+  validate(endTime: any, args: ValidationArguments) {
+    const obj: any = args.object;
+    if (!obj.startTime || !endTime) return false;
+    return new Date(endTime) > new Date(obj.startTime);
+  }
+
+  defaultMessage(args: ValidationArguments) {
+    return 'endTime must be after startTime';
+  }
+}
 
 export class CreateTaskDto {
   @IsString()
@@ -9,9 +32,13 @@ export class CreateTaskDto {
   @IsNotEmpty()
   description: string;
 
-  @IsDate()
+  @IsDateString()
+  @Validate((value) => new Date(value) >= new Date(), {
+    message: 'startTime must not be in the past',
+  })
   startTime: Date;
 
-  @IsDate()
+  @IsDateString()
+  @Validate(IsEndTimeAfterStartTimeConstraint)
   endTime: Date;
 }

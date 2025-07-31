@@ -3,5 +3,5 @@ import { IsCompleted } from 'src/enum';
 
 export class CreateAssignedTaskDto {
   @IsEnum(IsCompleted)
-  isCompleted: IsCompleted = IsCompleted.FALSE;
+  isCompleted: IsCompleted;
 }

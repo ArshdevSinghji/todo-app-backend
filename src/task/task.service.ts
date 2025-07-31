@@ -4,7 +4,6 @@ import { Task } from './entities/task.entity';
 import { Repository } from 'typeorm/repository/Repository';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UserService } from 'src/user/user.service';
-import { AssignedTask } from 'src/assigned-task/entities/assigned-task.entity';
 
 @Injectable()
 export class TaskService {
@@ -55,10 +54,11 @@ export class TaskService {
       qb.andWhere('task.endTime <= :endTime', { endTime });
     }
 
-    if (filterType === 'myCreation' && userId) {
-      qb.andWhere('createdBy.uid = :userId', { userId });
-    } else if (userId) {
-    }
+    // if (filterType === 'myCreation' && userId) {
+    //   qb.andWhere('createdBy.uid = :userId', { userId });
+    // } else if (userId) {
+    //   qb.andWhere('assignee.uid = :userId', { userId });
+    // }
 
     if (searchTerm) {
       searchTerm = searchTerm.trim();
