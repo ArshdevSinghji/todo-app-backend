@@ -4,6 +4,7 @@ import { SignInDto } from './dto/signIn.dto';
 import { SignUpDto } from './dto/signUp.dto';
 import { HashService } from 'src/hash/hash.service';
 import { UserService } from 'src/user/user.service';
+// Remove incorrect import of Response from 'express'
 
 @Injectable()
 export class AuthService {
@@ -13,7 +14,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async signIn(signInDto: SignInDto) {
+  async signIn(signInDto: SignInDto, res: any) {
     const { email, password } = signInDto;
 
     if (!email || !password) {
@@ -38,6 +39,8 @@ export class AuthService {
     const payload = { email: user.email, uid: user.uid };
 
     const accessToken = this.jwtService.sign(payload);
+
+    res.cookie('accessToken', accessToken);
 
     return {
       accessToken,
